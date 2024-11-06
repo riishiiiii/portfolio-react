@@ -1,84 +1,131 @@
 import React from "react";
+import { useTheme } from './ThemeContaxt';
 
 const Projects = () => {
+  const { darkMode } = useTheme();
+
+  const projects = [
+    {
+      title: "Digital Twin",
+      description: "Led the development of a high-performance FastAPI backend from inception, addressing performance challenges experienced with Anvil. Integrated Databricks, AWS S3, and AWS EC2 to create a robust data processing pipeline using PySpark for efficient handling of large datasets. Implemented APIs for training machine learning models with PyTorch on Databricks.",
+      link: null,
+      tags: ["FastAPI", "AWS", "Databricks", "PySpark", "PyTorch"]
+    },
+    {
+      title: "Know Your Data",
+      description: "Created a web application using streamlit to get the best-performing model on data provided by users. Users can visualize data, apply preprocessing on data, and find a perfect model for predicting new outputs.",
+      link: "https://github.com/riishiiiii/knowyourdata",
+      tags: ["Streamlit", "Machine Learning", "Data Visualization", "Python"]
+    },
+    {
+      title: "Q&A Using Langchain and OpenAI",
+      description: "Developed a compact yet impactful project integrating LangChain, OpenAI, and Pinecone to facilitate efficient information retrieval from PDF-formatted books. Leveraging the power of LangChain for language processing, OpenAI for advanced natural language understanding, and Pinecone for robust search capabilities, the project enables users to effortlessly extract answers from any book in PDF format.",
+      link: "https://github.com/riishiiiii/QNA_langchain",
+      tags: ["LangChain", "OpenAI", "Pinecone", "NLP"]
+    }
+  ];
+
   return (
-    <>
-      <section data-aos="fade-up" id="projects" class="mt-5 pt-5">
-        <div class="container mt-5 mb-5 pt-3">
-          <h1
-            style={{color: "#0D6EFD"}}
-            class="text-center mt-5 mb-5 pt-5 "
+    <section id="projects" className="min-vh-100 py-5">
+      <div className="container px-3">
+        <div 
+          className="text-center mb-5"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          <h2 
+            className="display-4 fw-bold" 
+            style={{
+              color: darkMode ? "#fff" : "#000",
+              fontSize: 'clamp(2rem, 5vw, 3.5rem)' // Responsive font size
+            }}
           >
             Projects
-          </h1>
-          <div class="project">
-            <p class="lh-base fs-4" data-aos="fade-up" data-aos-duration="1000">
-              In my relatively short career, I've actively contributed to a
-              range of projects, emphasizing my expertise in both backend
-              development and artificial intelligence (AI). Engaging with
-              frameworks like FastAPI and Django, I've crafted robust backend
-              solutions, ensuring optimal performance and reliability.
-              Simultaneously, I've delved into AI projects, leveraging various
-              libraries to implement advanced algorithms and models. Here are
-              some of those.
-            </p>
-            <h3
-              style={{color: "#0D6EFD"}}
+          </h2>
+          <p 
+            className="lead" 
+            style={{
+              color: darkMode ? "#fff" : "#333",
+              fontSize: 'clamp(1rem, 2vw, 1.2rem)' // Responsive font size
+            }}
+          >
+            Showcasing my journey through code and innovation
+          </p>
+        </div>
+
+        <div className="row g-4">
+          {projects.map((project, index) => (
+            <div 
+              key={index} 
+              className="col-12"
               data-aos="fade-up"
               data-aos-duration="1000"
+              data-aos-delay={index * 100}
             >
-              1. Digital Twin{" "}
-            </h3>
-            <p class="lh-base fs-4" data-aos="fade-up" data-aos-duration="1000">
-              Led the development of a high-performance FastAPI backend from
-              inception, addressing performance challenges experienced with
-              Anvil. Integrated Databricks, AWS S3, and AWS EC2 to create a
-              robust data processing pipeline using PySpark for efficient
-              handling of large datasets. Implemented APIs for training machine
-              learning models with PyTorch on Databricks.
-            </p>
-            <h3 data-aos="fade-up" data-aos-duration="1000">
-              <a
-                style={{color: "#0D6EFD"}}
-                class="text-decoration-none"
-                href="https://github.com/riishiiiii/knowyourdata"
+              <div 
+                className="p-3 p-md-4 h-100"
+                style={{
+                  background: darkMode ? "#222" : "#f5f5f5",
+                  borderRadius: "15px",
+                  transition: "all 0.3s ease",
+                  cursor: project.link ? "pointer" : "default"
+                }}
+                onMouseEnter={e => {
+                  if (project.link) {
+                    e.currentTarget.style.transform = "translateY(-5px)";
+                    e.currentTarget.style.background = darkMode ? "#333" : "#e5e5e5";
+                  }
+                }}
+                onMouseLeave={e => {
+                  if (project.link) {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.background = darkMode ? "#222" : "#f5f5f5";
+                  }
+                }}
+                onClick={() => project.link && window.open(project.link, '_blank')}
               >
-                2. Know Your Data
-              </a>
-            </h3>
-            <p class="lh-base fs-4" data-aos="fade-up" data-aos-duration="1000">
-              Created a web application using streamlit to get the
-              best-performing model on data provided by users. Users can
-              visualize data, apply preprocessing on data, and find a perfect
-              model for predicting new outputs.
-            </p>
-            <h3 data-aos="fade-up" data-aos-duration="1000">
-              <a
-                style={{color: "#0D6EFD"}}
-                class="text-decoration-none"
-                href="https://github.com/riishiiiii/QNA_langchain"
-              >
-                3. Q&A Using Langchain and Openai
-              </a>
-            </h3>
-            <p class="lh-base fs-4" data-aos="fade-up" data-aos-duration="1000">
-              Developed a compact yet impactful project integrating LangChain,
-              OpenAI, and Pinecone to facilitate efficient information retrieval
-              from PDF-formatted books. Leveraging the power of LangChain for
-              language processing, OpenAI for advanced natural language
-              understanding, and Pinecone for robust search capabilities, the
-              project enables users to effortlessly extract answers from any
-              book in PDF format. This innovative solution streamlines the
-              process of accessing relevant information, showcasing the seamless
-              integration of cutting-edge technologies to enhance the user
-              experience in navigating extensive written content.
-            </p>
-          </div>
+                <h3 
+                  className="h4 mb-3" 
+                  style={{
+                    color: darkMode ? "#fff" : "#000",
+                    fontSize: 'clamp(1.2rem, 3vw, 1.5rem)' // Responsive font size
+                  }}
+                >
+                  {project.title}
+                  {project.link && <i className="fas fa-external-link-alt ms-2" style={{fontSize: "0.8em"}}></i>}
+                </h3>
+                <p 
+                  className="mb-4" 
+                  style={{
+                    color: darkMode ? "#fff" : "#333",
+                    fontSize: 'clamp(0.9rem, 2vw, 1rem)' // Responsive font size
+                  }}
+                >
+                  {project.description}
+                </p>
+                <div className="d-flex flex-wrap gap-2">
+                  {project.tags.map((tag, tagIndex) => (
+                    <span 
+                      key={tagIndex}
+                      className="px-3 py-1"
+                      style={{
+                        background: darkMode ? "#333" : "#e5e5e5",
+                        color: darkMode ? "#fff" : "#000",
+                        borderRadius: "20px",
+                        fontSize: "0.85rem"
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
-
 
 export default Projects;

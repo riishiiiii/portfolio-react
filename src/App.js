@@ -1,23 +1,26 @@
-import React  from "react";
+import React from "react";
+import { ThemeProvider } from "./components/ThemeContaxt";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Skills from "./components/Skils";
 import Projects from "./components/Projects";
-import LastPlayedSongs from "./components/LastPlayedSongs";
 import Footer from "./components/Footer";
 
 import "./App.css";
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
-      <Home />
-      <Skills />
-      <Projects />
-      <LastPlayedSongs/>
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="app-container">
+        <Navbar />
+        <main>
+          <Home />
+          <Skills />
+          <Projects />
+          <Footer />
+        </main>
+      </div>
+    </ThemeProvider>
   );
 };
 

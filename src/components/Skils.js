@@ -13,98 +13,121 @@ import { ReactComponent as TensorFlow } from "../assets/icons/tf.svg";
 import { ReactComponent as Pytorch } from "../assets/icons/pytorch.svg";
 import { ReactComponent as Django } from "../assets/icons/django.svg";
 import { ReactComponent as Vs } from "../assets/icons/vs.svg";
+import { useTheme } from './ThemeContaxt';
 
 const Skills = () => {
-  return (
-    <>
-      <section
-        class="pt-5 mt-5"
-        id="skills"
-        data-aos="fade-up"
-        data-aos-duration="1000"
-      >
-        <div class="container text-center mx-auto mt-5 pt-5">
-          <h1 style={{color: "#0D6EFD"}} id="skills-heading">
-            Skills
-          </h1>
-        </div>
+  const { darkMode } = useTheme();
 
-        <div
-          class="container mx-auto mt-5 pt-5"
+  const skillGroups = [
+    {
+      title: "Core Technologies",
+      skills: [
+        { Icon: Python, name: "Python" },
+        { Icon: JavaScript, name: "JavaScript" },
+        { Icon: FastApi, name: "FastAPI" },
+        { Icon: HTML, name: "HTML" },
+        { Icon: CSS, name: "CSS" },
+        { Icon: Bash, name: "Bash" }
+      ]
+    },
+    {
+      title: "Tools & Databases",
+      skills: [
+        { Icon: Jupyter, name: "Jupyter" },
+        { Icon: MongoDB, name: "MongoDB" },
+        { Icon: PgSql, name: "PostgreSQL" },
+        { Icon: GIT, name: "GIT" },
+        { Icon: Vs, name: "VS Code" }
+      ]
+    },
+    {
+      title: "AI & Frameworks",
+      skills: [
+        { Icon: TensorFlow, name: "TensorFlow" },
+        { Icon: Pytorch, name: "PyTorch" },
+        { Icon: Django, name: "Django" }
+      ]
+    }
+  ];
+
+  return (
+    <section id="skills" className="min-vh-100 py-5">
+      <div className="container px-3">
+        <div 
+          className="text-center mb-5"
           data-aos="fade-up"
           data-aos-duration="1000"
         >
-          <div class="row ">
-            <div class="col-2 text-center">
-              <Python class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">Python</p>
-            </div>
-            <div class="col-2 text-center">
-              <JavaScript class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">JavaScript</p>
-            </div>
-            <div class="col-2 text-center">
-              <FastApi class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">FasAPI</p>
-            </div>
-            <div class="col-2 text-center">
-              <HTML class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">HTML</p>
-            </div>
-            <div class="col-2 text-center">
-              <CSS class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">CSS</p>
-            </div>
-            <div class="col-2 text-center">
-              <Bash class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">Bash</p>
+          <h2 
+            className="display-4 fw-bold" 
+            style={{
+              color: darkMode ? "#fff" : "#000",
+              fontSize: 'clamp(2rem, 5vw, 3.5rem)' // Responsive font size
+            }}
+          >
+            Technical Skills
+          </h2>
+          <p 
+            className="lead" 
+            style={{
+              color: darkMode ? "#fff" : "#333",
+              fontSize: 'clamp(1rem, 2vw, 1.2rem)' // Responsive font size
+            }}
+          >
+            Technologies and tools I work with
+          </p>
+        </div>
+
+        {skillGroups.map((group, index) => (
+          <div 
+            key={index}
+            className="mb-5"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay={index * 100}
+          >
+            <h3 
+              className="h4 mb-4" 
+              style={{
+                color: darkMode ? "#fff" : "#000",
+                fontSize: 'clamp(1.2rem, 3vw, 1.5rem)' // Responsive font size
+              }}
+            >
+              {group.title}
+            </h3>
+            <div className="row g-3 g-md-4">
+              {group.skills.map((skill, skillIndex) => (
+                <div key={skillIndex} className="col-4 col-sm-4 col-md-3 col-lg-2">
+                  <div 
+                    className="skill-card p-3 text-center"
+                    style={{
+                      background: darkMode ? "#222" : "#f5f5f5",
+                      borderRadius: "12px",
+                      transition: "all 0.3s ease",
+                      cursor: "pointer"
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = "translateY(-5px)";
+                      e.currentTarget.style.background = darkMode ? "#333" : "#e5e5e5";
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.background = darkMode ? "#222" : "#f5f5f5";
+                    }}
+                  >
+                    <skill.Icon className="img-fluid mb-2" style={{height: "40px"}}/>
+                    <p className="mb-0" style={{color: darkMode ? "#fff" : "#000", fontSize: "0.9rem"}}>
+                      {skill.name}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-        <div class="container mt-5" data-aos="fade-up" data-aos-duration="1000">
-          <div class="row">
-            <div class="col-2 text-center">
-              <Jupyter class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">Jupyter</p>
-            </div>
-            <div class="col-2 text-center">
-              <MongoDB/>
-              <p class="mt-1 overflow-hidden">MongoDB</p>
-            </div>
-            <div class="col-2 text-center">
-              <PgSql/>
-              <p class="mt-1 overflow-hidden">PostgressSQL</p>
-            </div>
-            <div class="col-2 text-center">
-              <GIT class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">GIT</p>
-            </div>
-            <div class="col-2 text-center">
-              <TensorFlow class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">TensorFlow</p>
-            </div>
-            <div class="col-2 text-center">
-              <Pytorch class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">PytTorch</p>
-            </div>
-          </div>
-        </div>
-        <div class="container mt-5" data-aos="fade-up" data-aos-duration="1000">
-          <div class="row">
-            <div class="col-2 text-center">
-              <Django class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">Django</p>
-            </div>
-            <div class="col-2 text-center">
-              <Vs class="img-fluid zoomable-image"/>
-              <p class="mt-1 overflow-hidden">VS Code</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+        ))}
+      </div>
+    </section>
   );
 };
-
 
 export default Skills;
