@@ -1,30 +1,34 @@
 {
   "files": {
     "main.css": "/portfolio-react/static/css/main.0f4a1767.css",
-    "main.js": "/portfolio-react/static/js/main.a3414f06.js",
+    "main.js": "/portfolio-react/static/js/main.8264b5a6.js",
     "static/js/592.6d7de513.chunk.js": "/portfolio-react/static/js/592.6d7de513.chunk.js",
     "static/media/profile-pic.png": "/portfolio-react/static/media/profile-pic.dcc4d7430c3869206cb6.png",
     "static/media/mongodb-icon-2.svg": "/portfolio-react/static/media/mongodb-icon-2.5dbf0d663e755d6af9f8fd8d7903dfbb.svg",
     "static/media/pgsql.svg": "/portfolio-react/static/media/pgsql.7017e5e02cd1179a30836df6b9605b7f.svg",
     "static/media/bash.svg": "/portfolio-react/static/media/bash.97fc5e5de92a19fb2e76c0125808ad5d.svg",
+    "static/media/react.svg": "/portfolio-react/static/media/react.73267c1ff791c8019c10e06fe5b30946.svg",
     "index.html": "/portfolio-react/index.html",
+    "static/media/docker.svg": "/portfolio-react/static/media/docker.fcd0205e569aca56737f4dfae9b20b15.svg",
     "static/media/jyupyter.svg": "/portfolio-react/static/media/jyupyter.4550cb5234cfec80cc44557c4efea8bf.svg",
     "static/media/python.svg": "/portfolio-react/static/media/python.cf20459a4909b4a98d23b01898fdd0e4.svg",
     "static/media/pytorch.svg": "/portfolio-react/static/media/pytorch.ef58b9b9b1d905570eeb7f93ddc9519f.svg",
     "static/media/js.svg": "/portfolio-react/static/media/js.201fb9186cac11ef6b4ad450ad3d2397.svg",
     "static/media/vs.svg": "/portfolio-react/static/media/vs.9067933c13e863d6bee4f1d0920ef428.svg",
     "static/media/tf.svg": "/portfolio-react/static/media/tf.18e64972c2def56592f4fa6dec6c379f.svg",
+    "static/media/numpy.svg": "/portfolio-react/static/media/numpy.8691e63c141d62e5797f6cd0fcfeed17.svg",
     "static/media/git.svg": "/portfolio-react/static/media/git.49c26499d7d5b25c73c7bf1dbea4ec6c.svg",
     "static/media/css.svg": "/portfolio-react/static/media/css.642b9692dab771bd02064eae92a0ac53.svg",
     "static/media/django.svg": "/portfolio-react/static/media/django.74ec1db7e92934721c7b5f2f7f42bddc.svg",
     "static/media/html.svg": "/portfolio-react/static/media/html.d91d59872131bd86dd43c349439c389b.svg",
+    "static/media/pandas.svg": "/portfolio-react/static/media/pandas.bf9a13f23458a65b6de39c92a3b3f624.svg",
     "static/media/fastapi-1.svg": "/portfolio-react/static/media/fastapi-1.a95637a88923760b2cef581ceb213b93.svg",
     "main.0f4a1767.css.map": "/portfolio-react/static/css/main.0f4a1767.css.map",
-    "main.a3414f06.js.map": "/portfolio-react/static/js/main.a3414f06.js.map",
+    "main.8264b5a6.js.map": "/portfolio-react/static/js/main.8264b5a6.js.map",
     "592.6d7de513.chunk.js.map": "/portfolio-react/static/js/592.6d7de513.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0f4a1767.css",
-    "static/js/main.a3414f06.js"
+    "static/js/main.8264b5a6.js"
   ]
 }
