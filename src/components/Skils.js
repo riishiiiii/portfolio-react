@@ -13,6 +13,11 @@ import { ReactComponent as TensorFlow } from "../assets/icons/tf.svg";
 import { ReactComponent as Pytorch } from "../assets/icons/pytorch.svg";
 import { ReactComponent as Django } from "../assets/icons/django.svg";
 import { ReactComponent as Vs } from "../assets/icons/vs.svg";
+import { ReactComponent as ReactLogo } from "../assets/icons/react.svg";
+import { ReactComponent as Pandas } from "../assets/icons/pandas.svg";
+import { ReactComponent as Numpy } from "../assets/icons/numpy.svg";
+import { ReactComponent as Docker } from "../assets/icons/docker.svg";
+
 import { useTheme } from './ThemeContaxt';
 
 const Skills = () => {
@@ -37,6 +42,7 @@ const Skills = () => {
         { Icon: MongoDB, name: "MongoDB" },
         { Icon: PgSql, name: "PostgreSQL" },
         { Icon: GIT, name: "GIT" },
+        { Icon: Docker, name: "Docker" },
         { Icon: Vs, name: "VS Code" }
       ]
     },
@@ -45,7 +51,10 @@ const Skills = () => {
       skills: [
         { Icon: TensorFlow, name: "TensorFlow" },
         { Icon: Pytorch, name: "PyTorch" },
-        { Icon: Django, name: "Django" }
+        { Icon: Pandas, name: "Pandas" },
+        { Icon: Numpy, name: "Numpy" },
+        { Icon: Django, name: "Django" },
+        { Icon: ReactLogo, name: "React" }
       ]
     }
   ];
