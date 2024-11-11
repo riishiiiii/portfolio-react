@@ -32,8 +32,8 @@ const Footer = () => {
                   <div className="icon-wrapper me-3 p-2 rounded" style={{background: "rgba(255,255,255,0.1)"}}>
                     <i className="fas fa-envelope text-white"></i>
                   </div>
-                  <a href="mailto:rishi4611@gmail.com" className="text-white text-decoration-none opacity-75 hover-opacity-100">
-                    rishi4611@gmail.com
+                  <a href="mailto:riship4611@gmail.com" className="text-white text-decoration-none opacity-75 hover-opacity-100">
+                    riship4611@gmail.com
                   </a>
                 </div>
                 <div className="d-flex align-items-center contact-item">
@@ -41,6 +41,7 @@ const Footer = () => {
                     <i className="fas fa-phone text-white"></i>
                   </div>
                   <span className="text-white opacity-75">+91 9510310510</span>
+                  <span className="text-white opacity-75 ml-3">+91 7990370056</span>
                 </div>
               </div>
             </div>
