@@ -173,7 +173,7 @@ const Home = () => {
                       <i className="fab fa-linkedin"></i>
                     </a>
                     <a
-                      href="https://twitter.com/Riishiiiiii"
+                      href="https://x.com/Riishiiiiii"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="social-icon"
@@ -189,7 +189,7 @@ const Home = () => {
                         e.target.style.color = darkMode ? '#fff' : '#000';
                       }}
                     >
-                      <i className="fab fa-twitter"></i>
+                      <i class="fa-brands fa-x-twitter"></i>
                     </a>
                   </div>
                 </div>
