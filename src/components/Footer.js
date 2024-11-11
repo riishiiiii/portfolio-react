@@ -124,11 +124,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div 
-            className="text-center mt-5"
-            data-aos="fade-up"
-            data-aos-duration="1000"
-          >
+          <div className="text-center mt-5">
             <p className="text-white opacity-75 mb-0">© 2024 Rishi Pandey. All rights reserved.</p>
           </div>
         </div>
