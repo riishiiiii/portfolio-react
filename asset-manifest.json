@@ -1,11 +1,12 @@
 {
   "files": {
     "main.css": "/portfolio-react/static/css/main.0f4a1767.css",
-    "main.js": "/portfolio-react/static/js/main.8d5304f3.js",
+    "main.js": "/portfolio-react/static/js/main.7070fc0e.js",
     "static/js/592.6d7de513.chunk.js": "/portfolio-react/static/js/592.6d7de513.chunk.js",
     "static/media/profile-pic.png": "/portfolio-react/static/media/profile-pic.dcc4d7430c3869206cb6.png",
     "static/media/mongodb-icon-2.svg": "/portfolio-react/static/media/mongodb-icon-2.5dbf0d663e755d6af9f8fd8d7903dfbb.svg",
     "static/media/pgsql.svg": "/portfolio-react/static/media/pgsql.7017e5e02cd1179a30836df6b9605b7f.svg",
+    "static/media/langchain.svg": "/portfolio-react/static/media/langchain.97463f5c3ee1e1dbf161f198632bd448.svg",
     "static/media/bash.svg": "/portfolio-react/static/media/bash.97fc5e5de92a19fb2e76c0125808ad5d.svg",
     "static/media/react.svg": "/portfolio-react/static/media/react.73267c1ff791c8019c10e06fe5b30946.svg",
     "index.html": "/portfolio-react/index.html",
@@ -24,11 +25,11 @@
     "static/media/pandas.svg": "/portfolio-react/static/media/pandas.bf9a13f23458a65b6de39c92a3b3f624.svg",
     "static/media/fastapi-1.svg": "/portfolio-react/static/media/fastapi-1.a95637a88923760b2cef581ceb213b93.svg",
     "main.0f4a1767.css.map": "/portfolio-react/static/css/main.0f4a1767.css.map",
-    "main.8d5304f3.js.map": "/portfolio-react/static/js/main.8d5304f3.js.map",
+    "main.7070fc0e.js.map": "/portfolio-react/static/js/main.7070fc0e.js.map",
     "592.6d7de513.chunk.js.map": "/portfolio-react/static/js/592.6d7de513.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0f4a1767.css",
-    "static/js/main.8d5304f3.js"
+    "static/js/main.7070fc0e.js"
   ]
 }
