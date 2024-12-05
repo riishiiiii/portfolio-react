@@ -17,6 +17,7 @@ import { ReactComponent as ReactLogo } from "../assets/icons/react.svg";
 import { ReactComponent as Pandas } from "../assets/icons/pandas.svg";
 import { ReactComponent as Numpy } from "../assets/icons/numpy.svg";
 import { ReactComponent as Docker } from "../assets/icons/docker.svg";
+import { ReactComponent as Langchain } from "../assets/icons/langchain.svg";
 
 import { useTheme } from './ThemeContaxt';
 
@@ -30,6 +31,8 @@ const Skills = () => {
         { Icon: Python, name: "Python" },
         { Icon: JavaScript, name: "JavaScript" },
         { Icon: FastApi, name: "FastAPI" },
+        { Icon: Django, name: "Django" },
+        { Icon: ReactLogo, name: "React" },
         { Icon: HTML, name: "HTML" },
         { Icon: CSS, name: "CSS" },
         { Icon: Bash, name: "Bash" }
@@ -51,16 +54,24 @@ const Skills = () => {
       skills: [
         { Icon: TensorFlow, name: "TensorFlow" },
         { Icon: Pytorch, name: "PyTorch" },
+        { Icon: Langchain, name: "Langchain" },
         { Icon: Pandas, name: "Pandas" },
         { Icon: Numpy, name: "Numpy" },
-        { Icon: Django, name: "Django" },
-        { Icon: ReactLogo, name: "React" }
+
       ]
     }
   ];
 
   return (
     <section id="skills" className="min-vh-100 py-5">
+      <style>
+        {`
+          #skills svg {
+            width: 48px;
+            height: 48px;
+          }
+        `}
+      </style>
       <div className="container px-3">
         <div 
           className="text-center mb-5"
