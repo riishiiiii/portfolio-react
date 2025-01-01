@@ -36,3 +36,4 @@ config.local.js
 
 # Ignore sensitive information
 secrets.json
+.vercel
