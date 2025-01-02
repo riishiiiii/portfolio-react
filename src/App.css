@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
 
+/* Root variables for consistent spacing and sizing */
+:root {
+  --spacing-xs: clamp(0.5rem, 1vw, 1rem);
+  --spacing-sm: clamp(1rem, 2vw, 1.5rem);
+  --spacing-md: clamp(1.5rem, 3vw, 2.5rem);
+  --spacing-lg: clamp(2rem, 4vw, 4rem);
+  --font-size-sm: clamp(0.875rem, 1vw, 1rem);
+  --font-size-base: clamp(1rem, 1.5vw, 1.25rem);
+  --font-size-lg: clamp(1.25rem, 2vw, 1.5rem);
+  --font-size-xl: clamp(1.5rem, 3vw, 2rem);
+  --container-padding: max(1rem, 5vw);
+}
 
 * {
   margin: 0;
@@ -9,6 +21,9 @@
 body {
   position: relative;
   font-family: "Mukta", sans-serif;
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  overflow-x: hidden;
 }
 
 #particles-js {
@@ -18,9 +33,16 @@ body {
   z-index: -1;
 }
 
+.container {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  max-width: min(1200px, 95vw);
+  margin: 0 auto;
+}
+
 .social-icons {
-  font-size: 2rem;
-  margin-right: 10px;
+  font-size: var(--font-size-xl);
+  margin-right: var(--spacing-xs);
 }
 
 .zoomable-image {
@@ -66,22 +88,41 @@ body {
   background-color: transparent;
 }
 
-
 #text-container::after {
   content: '|';
   display: inline-block;
   animation: blink 0.7s infinite alternate;
 }
 
-/* Additional styling for uniform card size */
-.track-card {
-  width: 140px; /* Set your desired fixed width for the card */
-  margin-bottom: 20px;
-  overflow-y: hidden; /* Optional: Add margin for spacing between cards */
+/* Responsive Grid System */
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
 }
 
-.track-card p .track-card h5{
-  overflow: hidden;
+/* Responsive card layouts */
+.track-card {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto var(--spacing-md);
+  padding: var(--spacing-sm);
+}
+
+/* Improved responsive text handling */
+h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 2.5rem);
+  line-height: 1.4;
 }
 
 @keyframes blink {
@@ -90,45 +131,47 @@ body {
   }
 }
 
-@media only screen and (max-width: 767px) {
-  #custom-cursor {
-    display: none;
+/* Enhanced media queries with better breakpoints */
+@media (max-width: 1200px) {
+  .container {
+    width: 95%;
   }
 }
 
-/* Responsive styles */
+@media (max-width: 992px) {
+  :root {
+    --spacing-lg: clamp(1.5rem, 3vw, 3rem);
+  }
+}
+
 @media (max-width: 768px) {
+  #custom-cursor {
+    display: none;
+  }
+  
   .navbar-brand {
-    font-size: 1.5rem !important;
+    font-size: var(--font-size-lg);
   }
-
-  .nav-link {
-    text-align: center;
-    padding: 0.5rem 0 !important;
-  }
-
-  .social-links {
-    justify-content: center;
+  
+  .social-icons {
+    font-size: var(--font-size-lg);
   }
 }
 
 @media (max-width: 576px) {
-  .container {
-    padding-left: 15px;
-    padding-right: 15px;
+  :root {
+    --container-padding: 1rem;
   }
+  
+  .grid {
+    gap: var(--spacing-sm);
+  }
+}
 
-  .skill-card {
-    padding: 0.75rem !important;
-  }
-
-  .skill-card img {
-    height: 30px !important;
-  }
-
-  .skill-card p {
-    font-size: 0.8rem !important;
-  }
+/* Improved responsive images */
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Add smooth scrolling */
