@@ -103,7 +103,7 @@ const Home = () => {
                 margin: '0 auto'
               }}
             >
-              A passionate developer from Ahmedabad with over 2 years of expertise in Python backend development. 
+              A passionate developer from Ahmedabad with over 3 years of expertise in Python backend development. 
               Specializing in FastAPI and Django, I craft elegant solutions that merge functionality with stunning design. 
               Currently exploring the frontiers of AI and machine learning to push innovation forward.
             </p>
