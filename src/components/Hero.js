@@ -21,6 +21,8 @@ const Hero = () => {
     return () => cancelAnimationFrame(rafId);
   }, []);
 
+  const resumeUrl = `${process.env.PUBLIC_URL || ""}/cv/resume.pdf`;
+
   return (
     <section id="home" className="position-relative section-py">
       <div className="hero-bg" />
@@ -73,10 +75,19 @@ const Hero = () => {
           </p>
           <div className="d-flex gap-2 gap-sm-3 justify-content-center mt-4 flex-wrap">
             <a
-              href={process.env.PUBLIC_URL + "/cv/resume.pdf"}
+              href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-modern"
+              download
+              onClick={(e) => {
+                // Fallback if popup blockers interfere
+                const win = window.open(resumeUrl, "_blank");
+                if (!win) {
+                  e.preventDefault();
+                  window.location.href = resumeUrl;
+                }
+              }}
             >
               <i className="fa fa-download me-2" /> Resume
             </a>

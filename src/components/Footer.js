@@ -1,14 +1,18 @@
 import React from "react";
+import { useTheme } from "./ThemeContaxt";
 
 const Footer = () => {
+  const { darkMode } = useTheme();
   return (
     <>
       <section
         id="contact-me"
         className="section-py"
         style={{
-          background: "#0f0f16",
-          borderTop: "1px solid rgba(255,255,255,0.08)",
+          background: "var(--bg-elev-1)",
+          borderTop: darkMode
+            ? "1px solid rgba(255,255,255,0.08)"
+            : "1px solid rgba(15,23,42,0.08)",
         }}
       >
         <div className="container">
@@ -30,17 +34,27 @@ const Footer = () => {
               data-aos-duration="1000"
             >
               <div className="p-4 h-100 glass-card">
-                <h3 className="h4 mb-4 text-white">Contact Details</h3>
+                <h3 className="h4 mb-4" style={{ color: "var(--text)" }}>
+                  Contact Details
+                </h3>
                 <div className="d-flex align-items-center mb-3 contact-item">
                   <div
                     className="icon-wrapper me-3 p-2 rounded"
-                    style={{ background: "rgba(255,255,255,0.1)" }}
+                    style={{
+                      background: darkMode
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(15,23,42,0.08)",
+                    }}
                   >
-                    <i className="fas fa-envelope text-white"></i>
+                    <i
+                      className="fas fa-envelope"
+                      style={{ color: "var(--text)" }}
+                    ></i>
                   </div>
                   <a
                     href="mailto:riship4611@gmail.com"
-                    className="text-white text-decoration-none opacity-75 hover-opacity-100"
+                    className="text-decoration-none opacity-75 hover-opacity-100"
+                    style={{ color: "var(--text)" }}
                   >
                     riship4611@gmail.com
                   </a>
@@ -48,12 +62,21 @@ const Footer = () => {
                 <div className="d-flex align-items-center contact-item">
                   <div
                     className="icon-wrapper me-3 p-2 rounded"
-                    style={{ background: "rgba(255,255,255,0.1)" }}
+                    style={{
+                      background: darkMode
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(15,23,42,0.08)",
+                    }}
                   >
-                    <i className="fas fa-phone text-white"></i>
+                    <i
+                      className="fas fa-phone"
+                      style={{ color: "var(--text)" }}
+                    ></i>
                   </div>
-                  <span className="text-white opacity-75">+91 9510310510</span>
-                  <span className="text-white opacity-75 ml-3">
+                  <span className="opacity-75" style={{ color: "var(--text)" }}>
+                    +91 9510310510
+                  </span>
+                  <span className="opacity-75 ml-3" style={{ color: "var(--text)" }}>
                     +91 7990370056
                   </span>
                 </div>
@@ -66,7 +89,9 @@ const Footer = () => {
               data-aos-duration="1000"
             >
               <div className="p-4 h-100 glass-card">
-                <h3 className="h4 mb-4 text-white">Social Links</h3>
+                <h3 className="h4 mb-4" style={{ color: "var(--text)" }}>
+                  Social Links
+                </h3>
                 <div className="d-flex gap-4">
                   <a
                     href="https://twitter.com/Riishiiiiii"
@@ -74,21 +99,28 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="social-link p-3 rounded"
                     style={{
-                      background: "rgba(255,255,255,0.1)",
+                      background: darkMode
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(15,23,42,0.08)",
                       transition: "all 0.3s ease",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.2)";
+                      e.currentTarget.style.background = darkMode
+                        ? "rgba(255,255,255,0.2)"
+                        : "rgba(15,23,42,0.14)";
                       e.currentTarget.style.transform = "translateY(-3px)";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.1)";
+                      e.currentTarget.style.background = darkMode
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(15,23,42,0.08)";
                       e.currentTarget.style.transform = "translateY(0)";
                     }}
                   >
-                    <i className="fab fa-twitter text-white"></i>
+                    <i
+                      className="fab fa-twitter"
+                      style={{ color: "var(--text)" }}
+                    ></i>
                   </a>
                   <a
                     href="https://www.linkedin.com/in/rishi-pandey-247962182/"
@@ -96,21 +128,28 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="social-link p-3 rounded"
                     style={{
-                      background: "rgba(255,255,255,0.1)",
+                      background: darkMode
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(15,23,42,0.08)",
                       transition: "all 0.3s ease",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.2)";
+                      e.currentTarget.style.background = darkMode
+                        ? "rgba(255,255,255,0.2)"
+                        : "rgba(15,23,42,0.14)";
                       e.currentTarget.style.transform = "translateY(-3px)";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.1)";
+                      e.currentTarget.style.background = darkMode
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(15,23,42,0.08)";
                       e.currentTarget.style.transform = "translateY(0)";
                     }}
                   >
-                    <i className="fab fa-linkedin text-white"></i>
+                    <i
+                      className="fab fa-linkedin"
+                      style={{ color: "var(--text)" }}
+                    ></i>
                   </a>
                   <a
                     href="https://github.com/riishiiiii"
@@ -118,21 +157,28 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="social-link p-3 rounded"
                     style={{
-                      background: "rgba(255,255,255,0.1)",
+                      background: darkMode
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(15,23,42,0.08)",
                       transition: "all 0.3s ease",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.2)";
+                      e.currentTarget.style.background = darkMode
+                        ? "rgba(255,255,255,0.2)"
+                        : "rgba(15,23,42,0.14)";
                       e.currentTarget.style.transform = "translateY(-3px)";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.1)";
+                      e.currentTarget.style.background = darkMode
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(15,23,42,0.08)";
                       e.currentTarget.style.transform = "translateY(0)";
                     }}
                   >
-                    <i className="fab fa-github text-white"></i>
+                    <i
+                      className="fab fa-github"
+                      style={{ color: "var(--text)" }}
+                    ></i>
                   </a>
                 </div>
               </div>
