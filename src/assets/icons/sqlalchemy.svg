@@ -1,0 +1,26 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">SQLAlchemy logo</title>
+
+  <!-- Background rounded square -->
+  <rect x="2" y="2" width="44" height="44" rx="6" ry="6" fill="#0F1722"/>
+
+  <!-- stylized 'A' formed by a snake-like stroke -->
+  <g transform="translate(6,6)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- left leg -->
+    <path d="M8 30 L16 8" fill="none" stroke="#6CC4A1" stroke-width="3.2"/>
+    <!-- right leg -->
+    <path d="M32 30 L24 8" fill="none" stroke="#6CC4A1" stroke-width="3.2"/>
+    <!-- crossbar (curved, snake body connecting into an A shape) -->
+    <path d="M12 18 C18 14, 24 14, 30 18" fill="none" stroke="#2EA57B" stroke-width="3.6"/>
+    <!-- snake head (tiny triangle) -->
+    <path d="M24 6 L21 10 L27 10 Z" fill="#2EA57B"/>
+    <!-- subtle inner shadow on stroke (thin darker path) -->
+    <path d="M12 18 C18 14, 24 14, 30 18" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="0.8" transform="translate(0,0.8)"/>
+  </g>
+
+  <!-- gentle highlight over the top area -->
+  <ellipse cx="24" cy="14" rx="8" ry="3" fill="rgba(255,255,255,0.04)"/>
+
+  <!-- text label -->
+  <text x="24" y="41.5" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="6.2" fill="#E6F8EE" text-anchor="middle" dominant-baseline="middle">sqlalchemy</text>
+</svg>

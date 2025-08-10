@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
 
 * {
   margin: 0;
@@ -8,14 +7,31 @@
 
 body {
   position: relative;
-  font-family: "Mukta", sans-serif;
+  font-family:
+    "Inter Variable",
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    Noto Sans,
+    sans-serif;
+}
+
+/* Ensure the page can scroll under fixed navbar */
+/* Ensure the page can scroll */
+body {
+  overflow-y: auto;
 }
 
 #particles-js {
   position: fixed;
+  inset: 0;
   width: 100%;
   height: 100%;
   z-index: -1;
+  pointer-events: none;
 }
 
 .social-icons {
@@ -42,11 +58,13 @@ body {
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: difference;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 #custom-cursor::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 8px;
   height: 8px;
@@ -66,9 +84,8 @@ body {
   background-color: transparent;
 }
 
-
 #text-container::after {
-  content: '|';
+  content: "|";
   display: inline-block;
   animation: blink 0.7s infinite alternate;
 }
@@ -80,7 +97,7 @@ body {
   overflow-y: hidden; /* Optional: Add margin for spacing between cards */
 }
 
-.track-card p .track-card h5{
+.track-card p .track-card h5 {
   overflow: hidden;
 }
 
@@ -104,7 +121,7 @@ body {
 
   .nav-link {
     text-align: center;
-    padding: 0.5rem 0 !important;
+    padding: 0.75rem 0 !important;
   }
 
   .social-links {
@@ -138,9 +155,73 @@ html {
 
 /* Improve touch targets on mobile */
 @media (max-width: 768px) {
-  button, 
+  button,
   a {
     min-height: 44px;
     min-width: 44px;
   }
 }
+
+/* Layout offsets for fixed navbar */
+:root {
+  --nav-offset-sm: 56px;
+  --nav-offset-lg: 64px;
+}
+
+main {
+  padding-top: var(--nav-offset-lg);
+}
+
+@media (max-width: 991.98px) {
+  main {
+    padding-top: var(--nav-offset-sm);
+  }
+}
+
+/* Mobile collapse menu overlay styles */
+@media (max-width: 991.98px) {
+  .navbar .collapse.show {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-elev-1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    padding: 0.5rem 1rem;
+    max-height: calc(100vh - var(--nav-offset-sm));
+    max-height: calc(100svh - var(--nav-offset-sm));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 1000;
+  }
+
+  /* Remove excessive horizontal margins in collapsed nav */
+  .navbar-nav .nav-link {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .navbar-nav.text-center.ms-auto {
+    margin-left: 0 !important;
+  }
+
+  /* Allow contact items to wrap nicely */
+  .contact-item {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+/* Fix anchor jump under fixed navbar */
+section[id] {
+  scroll-margin-top: var(--nav-offset-lg);
+}
+@media (max-width: 991.98px) {
+  section[id] {
+    scroll-margin-top: var(--nav-offset-sm);
+  }
+}
+
+/* Prevent sideways scroll */
+html { overflow-x: hidden; }
+body { overflow-x: clip; }

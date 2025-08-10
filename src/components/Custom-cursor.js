@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import "../App.css"
+import React, { useEffect, useState } from "react";
+import "../App.css";
 
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -18,20 +18,20 @@ const CustomCursor = () => {
       setIsHovered(false);
     };
 
-    document.addEventListener('mousemove', updateCursorPosition);
+    document.addEventListener("mousemove", updateCursorPosition);
 
-    const clickableElements = document.querySelectorAll('a, button');
+    const clickableElements = document.querySelectorAll("a, button");
     clickableElements.forEach((element) => {
-      element.addEventListener('mouseenter', handleElementHover);
-      element.addEventListener('mouseleave', handleElementLeave);
+      element.addEventListener("mouseenter", handleElementHover);
+      element.addEventListener("mouseleave", handleElementLeave);
     });
 
     return () => {
-      document.removeEventListener('mousemove', updateCursorPosition);
+      document.removeEventListener("mousemove", updateCursorPosition);
 
       clickableElements.forEach((element) => {
-        element.removeEventListener('mouseenter', handleElementHover);
-        element.removeEventListener('mouseleave', handleElementLeave);
+        element.removeEventListener("mouseenter", handleElementHover);
+        element.removeEventListener("mouseleave", handleElementLeave);
       });
     };
   }, []);
@@ -39,7 +39,7 @@ const CustomCursor = () => {
   return (
     <div
       id="custom-cursor"
-      className={isHovered ? 'hovered' : ''}
+      className={isHovered ? "hovered" : ""}
       style={{ left: `${position.x}px`, top: `${position.y}px` }}
     ></div>
   );

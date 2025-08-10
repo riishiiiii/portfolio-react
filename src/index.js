@@ -11,10 +11,10 @@ root.render(
   <StrictMode>
     <App />
     <CustomCursor />
-  </StrictMode>
+  </StrictMode>,
 );
 
 // Enable performance monitoring in production
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   reportWebVitals(console.log);
 }

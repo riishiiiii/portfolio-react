@@ -6,11 +6,13 @@ const LastPlayedSongs = () => {
     const username = "riishiiiii"; // Replace with your Last.fm username
     const tracksContainer = document.getElementById("tracks-container");
 
-    fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=8`)
-      .then(response => response.json())
-      
-      .then(data => {
-        data.recenttracks.track.slice(0, 8).forEach(track => {
+    fetch(
+      `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=8`,
+    )
+      .then((response) => response.json())
+
+      .then((data) => {
+        data.recenttracks.track.slice(0, 8).forEach((track) => {
           const artist = track.artist["#text"];
           const trackName = track.name;
           const imageUrl = track.image[2]["#text"]; // Use the medium-sized image
@@ -27,7 +29,7 @@ const LastPlayedSongs = () => {
               </div>
             </div>
           `;
-          
+
           // Function to limit characters and append "..."
           function limitCharacters(input, maxLength) {
             if (input.length > maxLength) {
@@ -39,25 +41,16 @@ const LastPlayedSongs = () => {
           tracksContainer.appendChild(trackCard);
         });
       })
-      .catch(error => console.error("Error fetching recent tracks:", error));
-  }, []); 
+      .catch((error) => console.error("Error fetching recent tracks:", error));
+  }, []);
 
   return (
     <>
-      <div
-        className="container mt-5 pt-5"
-        data-aos="fade-up"
-        data-aos-duration="1000"
-      >
-        <h3 style={{ color: "#0D6EFD" }} className="mb-3">
+      <div className="container section-py">
+        <h3 className="heading-lg" style={{ fontSize: "1.5rem" }}>
           My Last Played Songs
         </h3>
-        <div
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          id="tracks-container"
-          className="row mt-1"
-        ></div>
+        <div id="tracks-container" className="row mt-2"></div>
       </div>
     </>
   );
