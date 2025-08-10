@@ -33,6 +33,8 @@ const Skills = () => {
   const skillGroups = [
     {
       title: "Core Technologies",
+      description: "Primary languages and frameworks I work with daily",
+      color: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       skills: [
         { Icon: Python, name: "Python" },
         { Icon: JavaScript, name: "JavaScript" },
@@ -46,6 +48,8 @@ const Skills = () => {
     },
     {
       title: "Tools, Cloud & Databases",
+      description: "Development tools and infrastructure technologies",
+      color: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
       skills: [
         { Icon: Jupyter, name: "Jupyter" },
         { Icon: MongoDB, name: "MongoDB" },
@@ -61,6 +65,8 @@ const Skills = () => {
     },
     {
       title: "AI & Frameworks",
+      description: "Machine learning and AI development tools",
+      color: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
       skills: [
         { Icon: TensorFlow, name: "TensorFlow" },
         { Icon: Pytorch, name: "PyTorch" },
@@ -72,79 +78,180 @@ const Skills = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const groupVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const skillVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8,
+      y: 20
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.34, 1.56, 0.64, 1]
+      }
+    }
+  };
   return (
     <section id="skills" className="section-py">
       <style>
         {`
           #skills svg {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+          
+          .skill-group-header {
+            position: relative;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+          }
+          
+          .skill-group-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            z-index: -1;
           }
         `}
       </style>
       <div className="container px-3">
-        <div className="text-center mb-5">
-          <h2 className="heading-lg">Technical Skills</h2>
-          <p className="subtle">Technologies and tools I work with</p>
-        </div>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-6"
+        >
+          <h2 className="heading-lg mb-3">Technical Expertise</h2>
+          <p className="subtle" style={{ fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
+            Technologies and tools I use to build exceptional software solutions
+          </p>
+        </motion.div>
 
-        {skillGroups.map((group, index) => (
-          <div
-            key={index}
-            className="mb-5"
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            data-aos-delay={index * 100}
-          >
-            <h3 className="h4 mb-3 text-gradient">{group.title}</h3>
-            <div className="row g-2 g-sm-3 g-md-4">
-              {group.skills.map((skill, skillIndex) => (
-                <motion.div
-                  key={skillIndex}
-                  className="col-6 col-sm-4 col-md-3 col-lg-2"
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.4, delay: (skillIndex % 6) * 0.05 }}
-                >
-                  <TiltCard
-                    className="skill-card p-2 p-sm-3 text-center glass-card"
-                    style={{ borderRadius: 12 }}
-                    maxTilt={8}
-                    glare={false}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {skillGroups.map((group, index) => (
+            <motion.div
+              key={index}
+              variants={groupVariants}
+              className="mb-6"
+            >
+              <div 
+                className="skill-group-header text-center"
+                style={{
+                  background: `linear-gradient(135deg, ${group.color.split('(')[1].split(')')[0]})`,
+                }}
+              >
+                <h3 className="h3 mb-2 text-white fw-bold">{group.title}</h3>
+                <p className="mb-0 text-white opacity-90" style={{ fontSize: '1rem' }}>
+                  {group.description}
+                </p>
+              </div>
+              
+              <div className="row g-3 g-lg-4">
+                {group.skills.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skillIndex}
+                    variants={skillVariants}
+                    className="col-6 col-sm-4 col-md-3 col-xl-2"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    {skill.Icon ? (
-                      <skill.Icon
-                        className="img-fluid mb-2"
-                        style={{ height: "40px" }}
-                      />
-                    ) : (
-                      <div
-                        className="mb-2"
-                        style={{
-                          height: 40,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <span
-                          className="tag"
-                          style={{ background: "rgba(255,255,255,0.06)" }}
+                    <TiltCard
+                      className="skill-card p-3 p-lg-4 text-center glass-card floating"
+                      style={{ 
+                        borderRadius: 16,
+                        minHeight: '120px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                      maxTilt={12}
+                      glare={true}
+                    >
+                      {skill.Icon ? (
+                        <skill.Icon
+                          className="img-fluid mb-3"
+                          style={{ 
+                            height: "48px",
+                            filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))'
+                          }}
+                        />
+                      ) : (
+                        <div
+                          className="mb-3"
+                          style={{
+                            height: 48,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
                         >
-                          {skill.name}
-                        </span>
-                      </div>
-                    )}
-                    <p className="mb-0" style={{ fontSize: "0.9rem" }}>
-                      {skill.name}
-                    </p>
-                  </TiltCard>
-                </motion.div>
+                          <span
+                            className="tag"
+                            style={{ 
+                              background: "rgba(255,255,255,0.1)",
+                              backdropFilter: 'blur(10px)'
+                            }}
+                          >
+                            {skill.name}
+                          </span>
+                        </div>
+                      )}
+                      <p className="mb-0 fw-semibold" style={{ 
+                        fontSize: "0.9rem",
+                        color: 'var(--text)',
+                        letterSpacing: '-0.01em'
+                      }}>
+                        {skill.name}
+                      </p>
+                    </TiltCard>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
               ))}
             </div>
           </div>
-        ))}
+        </motion.div>
       </div>
     </section>
   );

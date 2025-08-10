@@ -23,6 +23,42 @@ const Hero = () => {
 
   const resumeUrl = `${process.env.PUBLIC_URL || ""}/cv/resume.pdf`;
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1]
+      }
+    }
+  };
+
+  const skillVariants = {
+    hidden: { opacity: 0, scale: 0.8, y: 20 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.34, 1.56, 0.64, 1]
+      }
+    }
+  };
   return (
     <section id="home" className="position-relative section-py">
       <div className="hero-bg" />
@@ -33,12 +69,12 @@ const Hero = () => {
         style={{ zIndex: 1 }}
       >
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
           className="text-center"
         >
-          <div className="mb-3">
+          <motion.div variants={itemVariants} className="mb-4">
             <span className="tag">
               <span
                 style={{
@@ -47,12 +83,14 @@ const Hero = () => {
                   borderRadius: 999,
                   background: "#22d3ee",
                   boxShadow: "0 0 10px #22d3ee",
+                  animation: "pulse 2s infinite"
                 }}
               />
               Building reliable backends & AI features
             </span>
-          </div>
-          <h1
+          </motion.div>
+          <motion.h1
+            variants={itemVariants}
             className="heading-xl fw-800 mb-3"
             style={{
               background:
@@ -63,8 +101,12 @@ const Hero = () => {
             }}
           >
             Rishi Pandey
-          </h1>
-          <p className="lead subtle mx-auto" style={{ maxWidth: 780 }}>
+          </motion.h1>
+          <motion.p 
+            variants={itemVariants}
+            className="lead subtle mx-auto" 
+            style={{ maxWidth: 820, lineHeight: 1.8 }}
+          >
             Python developer with 3.5+ years of experience building scalable
             backends and AI-driven features. Proficient in FastAPI, Docker, and
             PostgreSQL, with expertise in deploying applications to AWS (EC2,
@@ -72,8 +114,11 @@ const Hero = () => {
             LangChain/LangGraph, RAG pipelines, and vector databases (pgvector,
             Neo4j). Experienced in Docling-based parsing, and committed to clean
             architecture, high performance, and reliable systems.
-          </p>
-          <div className="d-flex gap-2 gap-sm-3 justify-content-center mt-4 flex-wrap">
+          </motion.p>
+          <motion.div 
+            variants={itemVariants}
+            className="d-flex gap-3 justify-content-center mt-5 flex-wrap"
+          >
             <a
               href={resumeUrl}
               target="_blank"
@@ -96,26 +141,36 @@ const Hero = () => {
               className="btn-modern"
               style={{ background: "rgba(124,58,237,0.2)" }}
             >
+              <i className="fa fa-code me-2" />
               View Projects
             </a>
-          </div>
+          </motion.div>
         </motion.div>
 
-        <div className="soft-divider mt-5" />
+        <motion.div 
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 1, delay: 1.5 }}
+          className="soft-divider mt-6"
+        />
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="row g-4 mt-4"
+          className="row g-3 g-md-4 mt-5"
         >
           {["FastAPI", "PostgreSQL", "AWS", "LangChain", "LangGraph", "Docker"].map((s, i) => (
-            <div key={s} className="col-6 col-sm-4 col-md-2">
-              <div className="glass-card text-center py-3 tilt-card">
-                <div className="tilt-layer fw-semibold">{s}</div>
+            <motion.div 
+              key={s} 
+              variants={skillVariants}
+              className="col-6 col-sm-4 col-md-2"
+            >
+              <div className="glass-card text-center py-4 tilt-card floating skill-card">
+                <div className="tilt-layer fw-semibold" style={{ fontSize: '0.9rem' }}>{s}</div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>
