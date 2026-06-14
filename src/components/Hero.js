@@ -1,124 +1,200 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Lenis from "lenis";
 import { useTheme } from "./ThemeContaxt";
 
-const Hero = () => {
-  useTheme();
+const TYPED_PHRASES = [
+  "that scale.",
+  "that ship.",
+  "reliably.",
+  "at speed.",
+];
+
+const useTypewriter = (phrases, speed = 70, pause = 2200) => {
+  const [displayed, setDisplayed] = useState(phrases[0]);
+  const [phraseIdx, setPhraseIdx] = useState(0);
+  const [charIdx, setCharIdx]     = useState(phrases[0].length);
+  const [deleting, setDeleting]   = useState(false);
+  const timeout                   = useRef(null);
 
   useEffect(() => {
-    // Smooth scrolling once at mount
-    const lenis = new Lenis({
-      smoothWheel: true,
-      lerp: 0.1,
-      wheelMultiplier: 0.9,
-    });
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    const current = phrases[phraseIdx];
+    if (!deleting && charIdx < current.length) {
+      timeout.current = setTimeout(() => setCharIdx(c => c + 1), speed);
+    } else if (!deleting && charIdx === current.length) {
+      timeout.current = setTimeout(() => setDeleting(true), pause);
+    } else if (deleting && charIdx > 0) {
+      timeout.current = setTimeout(() => setCharIdx(c => c - 1), speed / 2);
+    } else {
+      setDeleting(false);
+      setPhraseIdx(i => (i + 1) % phrases.length);
     }
-    const rafId = requestAnimationFrame(raf);
-    return () => cancelAnimationFrame(rafId);
-  }, []);
+    setDisplayed(current.slice(0, charIdx));
+    return () => clearTimeout(timeout.current);
+  }, [charIdx, deleting, phraseIdx, phrases, speed, pause]);
 
+  return displayed;
+};
+
+const STATS = [
+  { value: "4.5+",  label: "Years of experience" },
+  { value: "~35%",  label: "API latency reduced" },
+  { value: "~20%",  label: "LLM cost cut" },
+  { value: "5+",    label: "Client projects" },
+];
+
+/* Heading lines with staggered clip-path reveal */
+const LINES = [
+  { text: "Building",      dim: false },
+  { text: "RAG systems,",  dim: false },
+  { text: "AI agents &",   dim: false },
+  { text: "backends.",     dim: false },
+];
+
+const lineVariant = {
+  hidden: { y: "105%", opacity: 0 },
+  show:   (i) => ({
+    y: 0, opacity: 1,
+    transition: { duration: 0.75, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
+
+const fadeUp = (delay = 0) => ({
+  hidden: { opacity: 0, y: 20 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] } },
+});
+
+const Hero = () => {
+  useTheme();
+  const isMobile  = typeof window !== "undefined" && window.innerWidth < 768;
+  const typed     = useTypewriter(TYPED_PHRASES);
   const resumeUrl = `${process.env.PUBLIC_URL || ""}/cv/resume.pdf`;
 
-  return (
-    <section id="home" className="position-relative section-py">
-      <div className="hero-bg" />
-      <div className="hero-grid" />
+  useEffect(() => {
+    const lenis = new Lenis({ smoothWheel: true, lerp: 0.1, wheelMultiplier: 0.9 });
+    const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
+    const id = requestAnimationFrame(raf);
+    return () => cancelAnimationFrame(id);
+  }, []);
 
-      <div
-        className="container max-w-hero position-relative"
-        style={{ zIndex: 1 }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center"
+  return (
+    <section
+      id="home"
+      style={{ minHeight: "calc(100vh - var(--nav-h))", display: "flex", flexDirection: "column", justifyContent: "center" }}
+    >
+      <div className="px-4 px-md-5" style={{ width: "100%", paddingTop: isMobile ? "1.5rem" : "3rem", paddingBottom: isMobile ? "2rem" : "3rem" }}>
+
+        {/* Label */}
+        <motion.p
+          variants={fadeUp(0)} initial="hidden" animate="show"
+          style={{ fontSize: "0.875rem", fontWeight: 500, color: "var(--text-muted)", marginBottom: 24 }}
         >
-          <div className="mb-3">
-            <span className="tag">
-              <span
+          Hello! I'm Rishi.
+        </motion.p>
+
+        {/* Staggered heading */}
+        <h1 className="hero-heading" style={{ marginBottom: 32 }}>
+          {LINES.map((line, i) => (
+            <span key={i} className="line-wrap" style={{ display: "block" }}>
+              <motion.span
+                custom={i}
+                variants={lineVariant}
+                initial="hidden"
+                animate="show"
                 style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: 999,
-                  background: "#22d3ee",
-                  boxShadow: "0 0 10px #22d3ee",
+                  display: "block",
+                  color: line.dim ? "var(--text-dim-head)" : "var(--text)",
                 }}
-              />
-              Building reliable backends & AI features
+              >
+                {line.text}
+              </motion.span>
             </span>
-          </div>
-          <h1
-            className="heading-xl fw-800 mb-3"
-            style={{
-              background:
-                "linear-gradient(120deg, var(--text) 30%, var(--brand-2))",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              color: "transparent",
-            }}
-          >
-            Rishi Pandey
-          </h1>
-          <p className="lead subtle mx-auto" style={{ maxWidth: 780 }}>
-            Python developer with 3.5+ years of experience building scalable
-            backends and AI-driven features. Proficient in FastAPI, Docker, and
-            PostgreSQL, with expertise in deploying applications to AWS (EC2,
-            S3, Bedrock). Skilled in Large Language Models (LLMs),
-            LangChain/LangGraph, RAG pipelines, and vector databases (pgvector,
-            Neo4j). Experienced in Docling-based parsing, and committed to clean
-            architecture, high performance, and reliable systems.
-          </p>
-          <div className="d-flex gap-2 gap-sm-3 justify-content-center mt-4 flex-wrap">
-            <a
-              href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-modern"
-              download
-              onClick={(e) => {
-                // Fallback if popup blockers interfere
-                const win = window.open(resumeUrl, "_blank");
-                if (!win) {
-                  e.preventDefault();
-                  window.location.href = resumeUrl;
-                }
+          ))}
+
+          {/* Typewriter last line — nowrap keeps height exactly 1 line, no shift */}
+          <span className="line-wrap" style={{ display: "block", overflow: "hidden" }}>
+            <motion.span
+              custom={LINES.length}
+              variants={lineVariant}
+              initial="hidden"
+              animate="show"
+              style={{
+                display: "block",
+                color: "var(--text-dim-head)",
+                whiteSpace: "nowrap",
               }}
             >
-              <i className="fa fa-download me-2" /> Resume
-            </a>
-            <a
-              href="#projects"
-              className="btn-modern"
-              style={{ background: "rgba(124,58,237,0.2)" }}
-            >
-              View Projects
+              {typed}
+              <span style={{
+                display: "inline-block", width: "0.06em", height: "0.85em",
+                background: "var(--text-muted)", marginLeft: "0.05em",
+                verticalAlign: "middle", animation: "blink 1s step-end infinite",
+              }} />
+            </motion.span>
+          </span>
+        </h1>
+
+        {/* Bio + CTAs */}
+        <motion.div
+          variants={fadeUp(0.45)} initial="hidden" animate="show"
+          className="d-flex flex-column flex-md-row align-items-md-center gap-4"
+          style={{ maxWidth: 800 }}
+        >
+          <p style={{ color: "var(--text-muted)", fontSize: "1rem", lineHeight: 1.65, margin: 0, maxWidth: 440 }}>
+            Python Developer specialising in AI & Backend with 4.5+ years building voice, image,
+            and text agents — from RAG pipelines to FastAPI microservices — owned end-to-end across design, development, and AWS deployment.
+          </p>
+          <div className="d-flex flex-wrap gap-3 flex-shrink-0">
+            <a href="#projects" className="btn-pill">View Work →</a>
+            <a href={resumeUrl} target="_blank" rel="noopener noreferrer" download className="btn-pill-outline">
+              Resume
             </a>
           </div>
         </motion.div>
 
-        <div className="soft-divider mt-5" />
-
+        {/* Stats */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="row g-4 mt-4"
+          variants={fadeUp(0.6)} initial="hidden" animate="show"
+          style={{ marginTop: 80, display: "flex", flexWrap: "wrap", gap: "0px" }}
         >
-          {["FastAPI", "PostgreSQL", "AWS", "LangChain", "LangGraph", "Docker"].map((s, i) => (
-            <div key={s} className="col-6 col-sm-4 col-md-2">
-              <div className="glass-card text-center py-3 tilt-card">
-                <div className="tilt-layer fw-semibold">{s}</div>
+          {STATS.map((s, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ backgroundColor: "var(--bg-card)" }}
+              style={{
+                flex: "1 1 140px",
+                padding: "24px 28px",
+                borderTop: "1px solid var(--border)",
+                borderRight: i < STATS.length - 1 ? "1px solid var(--border)" : "none",
+                transition: "background 120ms ease",
+                cursor: "default",
+              }}
+            >
+              <div style={{
+                fontFamily: "'Space Grotesk Variable', system-ui, sans-serif",
+                fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
+                fontWeight: 700,
+                letterSpacing: "-0.03em",
+                color: "var(--text)",
+                lineHeight: 1,
+                marginBottom: 8,
+              }}>
+                {s.value}
               </div>
-            </div>
+              <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", fontWeight: 500 }}>
+                {s.label}
+              </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>
+
+      <style>{`
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 };

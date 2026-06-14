@@ -1,227 +1,106 @@
-@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  position: relative;
-  font-family:
-    "Inter Variable",
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Ubuntu,
-    Cantarell,
-    Noto Sans,
-    sans-serif;
+  font-family: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ensure the page can scroll under fixed navbar */
-/* Ensure the page can scroll */
-body {
-  overflow-y: auto;
-}
+body { overflow-y: auto; }
+html { overflow-x: hidden; }
+body { overflow-x: clip; }
 
-#particles-js {
+/* Custom cursor */
+#cursor-dot {
   position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  width: 8px;
+  height: 8px;
+  background: var(--text);
+  border-radius: 50%;
   pointer-events: none;
+  z-index: 9998;
+  will-change: transform;
 }
 
-.social-icons {
-  font-size: 2rem;
-  margin-right: 10px;
+#cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--text-muted);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  will-change: transform;
+  transition: width 200ms ease, height 200ms ease, border-color 200ms ease, background 200ms ease;
 }
 
-.zoomable-image {
-  transition: transform 0.3s ease;
+#cursor-ring.hovered {
+  width: 56px;
+  height: 56px;
+  border-color: var(--text);
+  background: rgba(128,128,128,0.08);
 }
 
-.zoomable-image:hover {
-  transform: scale(1.1);
+@media (max-width: 767px) {
+  #cursor-dot, #cursor-ring { display: none; }
 }
 
+/* Legacy cursor (unused now) */
 #custom-cursor {
   position: fixed;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   background-color: transparent;
-  border: 2px solid #3498db;
+  border: 1.5px solid var(--accent);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: difference;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
-}
-
-#custom-cursor::before {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background-color: #3498db;
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: background-color 0.3s ease;
+  transition: transform 0.1s ease, border-color 0.2s ease, width 0.2s ease, height 0.2s ease;
 }
 
 #custom-cursor.hovered {
-  background-color: #3498db;
+  width: 36px;
+  height: 36px;
+  background-color: var(--accent-dim);
 }
 
-#custom-cursor.hovered::before {
-  background-color: transparent;
+@media (max-width: 767px) {
+  #custom-cursor { display: none; }
 }
 
-#text-container::after {
-  content: "|";
-  display: inline-block;
-  animation: blink 0.7s infinite alternate;
-}
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
 
-/* Additional styling for uniform card size */
-.track-card {
-  width: 140px; /* Set your desired fixed width for the card */
-  margin-bottom: 20px;
-  overflow-y: hidden; /* Optional: Add margin for spacing between cards */
-}
-
-.track-card p .track-card h5 {
-  overflow: hidden;
-}
-
-@keyframes blink {
-  to {
-    opacity: 0;
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  #custom-cursor {
-    display: none;
-  }
-}
-
-/* Responsive styles */
+/* Touch targets */
 @media (max-width: 768px) {
-  .navbar-brand {
-    font-size: 1.5rem !important;
-  }
-
-  .nav-link {
-    text-align: center;
-    padding: 0.75rem 0 !important;
-  }
-
-  .social-links {
-    justify-content: center;
-  }
+  button, a { min-height: 44px; min-width: 44px; }
 }
 
-@media (max-width: 576px) {
-  .container {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .skill-card {
-    padding: 0.75rem !important;
-  }
-
-  .skill-card img {
-    height: 30px !important;
-  }
-
-  .skill-card p {
-    font-size: 0.8rem !important;
-  }
-}
-
-/* Add smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Improve touch targets on mobile */
-@media (max-width: 768px) {
-  button,
-  a {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
-/* Layout offsets for fixed navbar */
-:root {
-  --nav-offset-sm: 56px;
-  --nav-offset-lg: 64px;
-}
-
-main {
-  padding-top: var(--nav-offset-lg);
-}
-
-@media (max-width: 991.98px) {
-  main {
-    padding-top: var(--nav-offset-sm);
-  }
-}
-
-/* Mobile collapse menu overlay styles */
+/* Mobile nav overlay */
 @media (max-width: 991.98px) {
   .navbar .collapse.show {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--bg-elev-1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-    padding: 0.5rem 1rem;
-    max-height: calc(100vh - var(--nav-offset-sm));
-    max-height: calc(100svh - var(--nav-offset-sm));
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    background: var(--bg-subtle);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 8px 16px;
     z-index: 1000;
   }
-
-  /* Remove excessive horizontal margins in collapsed nav */
   .navbar-nav .nav-link {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
-  .navbar-nav.text-center.ms-auto {
+  .navbar-nav.ms-auto {
     margin-left: 0 !important;
   }
-
-  /* Allow contact items to wrap nicely */
-  .contact-item {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
 }
-
-/* Fix anchor jump under fixed navbar */
-section[id] {
-  scroll-margin-top: var(--nav-offset-lg);
-}
-@media (max-width: 991.98px) {
-  section[id] {
-    scroll-margin-top: var(--nav-offset-sm);
-  }
-}
-
-/* Prevent sideways scroll */
-html { overflow-x: hidden; }
-body { overflow-x: clip; }
