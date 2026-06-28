@@ -4,13 +4,11 @@ import { StrictMode } from "react";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import CustomCursor from "./components/Custom-cursor";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
     <App />
-    <CustomCursor />
   </StrictMode>,
 );
 

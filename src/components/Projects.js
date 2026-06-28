@@ -44,9 +44,89 @@ const PROJECTS = [
   },
 ];
 
+const ProjectCard = ({ project, featured = false }) => (
+  <div
+    className="card-lift"
+    style={{
+      background: "var(--bg-card)",
+      border: "1px solid var(--border)",
+      borderRadius: "var(--radius-lg)",
+      padding: featured ? "clamp(20px, 4vw, 40px)" : 24,
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      gap: 14,
+      minWidth: 0,
+      overflow: "hidden",
+    }}
+  >
+    {/* Header: num + title + badge */}
+    <div>
+      <span className="project-num" style={{ display: "block", marginBottom: 6 }}>{project.num}</span>
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
+        <h3 style={{
+          fontFamily: "'Space Grotesk Variable', system-ui, sans-serif",
+          fontSize: featured ? "clamp(1.2rem, 2.5vw, 2rem)" : "1.05rem",
+          fontWeight: 700,
+          letterSpacing: "-0.02em",
+          color: "var(--text)",
+          margin: 0,
+          minWidth: 0,
+        }}>
+          {project.title}
+        </h3>
+        <span style={{
+          fontSize: "0.75rem", fontWeight: 600,
+          color: "var(--text-muted)",
+          background: "var(--bg-hover)",
+          border: "1px solid var(--border-strong)",
+          borderRadius: 999,
+          padding: "4px 10px",
+          whiteSpace: "nowrap",
+          flexShrink: 0,
+          alignSelf: "flex-start",
+        }}>
+          {project.impact}
+        </span>
+      </div>
+    </div>
+
+    <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", lineHeight: 1.7, margin: 0, flex: 1 }}>
+      {project.description}
+    </p>
+
+    <div style={{
+      background: "var(--bg-hover)",
+      border: "1px solid var(--border)",
+      borderRadius: "var(--radius-md)",
+      padding: "10px 14px",
+      fontSize: "0.78rem",
+      color: "var(--text-muted)",
+      lineHeight: 1.6,
+    }}>
+      {project.metric}
+    </div>
+
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+      {project.tags.slice(0, featured ? project.tags.length : 4).map((t, i) => (
+        <span key={i} className="chip">{t}</span>
+      ))}
+      {!featured && project.tags.length > 4 && (
+        <span className="chip">+{project.tags.length - 4}</span>
+      )}
+    </div>
+  </div>
+);
+
+const fadeIn = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.52, delay, ease: [0.16, 1, 0.3, 1] },
+});
+
 const Projects = () => {
-  const featured = PROJECTS[0];
-  const rest = PROJECTS.slice(1);
+  const [p0, p1, p2, p3] = PROJECTS;
 
   return (
     <section id="projects" className="section-py" style={{ borderTop: "1px solid var(--border)" }}>
@@ -54,10 +134,7 @@ const Projects = () => {
 
         <motion.div
           className="d-flex align-items-end justify-content-between flex-wrap gap-3 mb-5"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          {...fadeIn()}
         >
           <div>
             <p className="section-label mb-3">Selected Work</p>
@@ -68,111 +145,22 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        {/* Featured project */}
-        <motion.div
-          className="card card-lift mb-3"
-          style={{ padding: "40px" }}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4">
-            <div>
-              <span className="project-num mb-2 d-block">{featured.num}</span>
-              <h3 style={{
-                fontFamily: "'Space Grotesk Variable', system-ui, sans-serif",
-                fontSize: "clamp(1.4rem, 3vw, 2rem)",
-                fontWeight: 700,
-                letterSpacing: "-0.02em",
-                color: "var(--text)",
-                margin: 0,
-              }}>
-                {featured.title}
-              </h3>
-            </div>
-            <span style={{
-              fontSize: "0.8rem", fontWeight: 600,
-              color: "var(--text-muted)",
-              background: "var(--bg-hover)",
-              border: "1px solid var(--border-strong)",
-              borderRadius: "999px",
-              padding: "6px 14px",
-              whiteSpace: "normal",
-            }}>
-              {featured.impact}
-            </span>
-          </div>
+        <div className="bento-grid">
+          <motion.div className="bento-featured" {...fadeIn(0)}>
+            <ProjectCard project={p0} featured />
+          </motion.div>
 
-          <div className="row g-4">
-            <div className="col-12 col-md-7">
-              <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: 1.7, margin: 0 }}>
-                {featured.description}
-              </p>
-            </div>
-            <div className="col-12 col-md-5">
-              <div style={{
-                background: "var(--bg-hover)",
-                border: "1px solid var(--border)",
-                borderRadius: "var(--radius-md)",
-                padding: "16px 20px",
-                fontSize: "0.8rem",
-                color: "var(--text-muted)",
-                marginBottom: 20,
-                lineHeight: 1.6,
-              }}>
-                {featured.metric}
-              </div>
-              <div className="d-flex flex-wrap gap-2">
-                {featured.tags.map((t, i) => <span key={i} className="chip">{t}</span>)}
-              </div>
-            </div>
-          </div>
-        </motion.div>
+          <motion.div className="bento-side" {...fadeIn(0.06)}>
+            <ProjectCard project={p1} />
+          </motion.div>
 
-        {/* Other projects grid */}
-        <div className="row g-3">
-          {rest.map((project, i) => (
-            <motion.div
-              key={i}
-              className="col-12 col-md-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="card card-lift h-100 d-flex flex-column" style={{ gap: 16 }}>
-                <div>
-                  <span className="project-num d-block mb-2">{project.num}</span>
-                  <h3 style={{
-                    fontFamily: "'Space Grotesk Variable', system-ui, sans-serif",
-                    fontSize: "1.1rem",
-                    fontWeight: 700,
-                    letterSpacing: "-0.02em",
-                    color: "var(--text)",
-                    margin: 0,
-                  }}>
-                    {project.title}
-                  </h3>
-                </div>
-                <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.65, margin: 0, flex: 1 }}>
-                  {project.description}
-                </p>
-                <div style={{
-                  fontSize: "0.78rem", color: "var(--text-muted)",
-                  borderTop: "1px solid var(--border)", paddingTop: 14,
-                }}>
-                  {project.impact}
-                </div>
-                <div className="d-flex flex-wrap gap-2">
-                  {project.tags.slice(0, 4).map((t, ti) => <span key={ti} className="chip">{t}</span>)}
-                  {project.tags.length > 4 && (
-                    <span className="chip">+{project.tags.length - 4}</span>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+          <motion.div className="bento-small" {...fadeIn(0.1)}>
+            <ProjectCard project={p2} />
+          </motion.div>
+
+          <motion.div className="bento-wide" {...fadeIn(0.14)}>
+            <ProjectCard project={p3} />
+          </motion.div>
         </div>
       </div>
     </section>

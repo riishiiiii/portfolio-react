@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Lenis from "lenis";
 import { useTheme } from "./ThemeContaxt";
 
@@ -42,6 +42,55 @@ const STATS = [
   { value: "~20%",  label: "LLM cost cut" },
   { value: "5+",    label: "Client projects" },
 ];
+
+const StatCounter = ({ value, label, style }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [display, setDisplay] = useState("0");
+
+  useEffect(() => {
+    if (!isInView) return;
+    const match = value.match(/^([~]?)(\d+\.?\d*)([+%]?)$/);
+    if (!match) { setDisplay(value); return; }
+    const [, prefix, numStr, suffix] = match;
+    const target = parseFloat(numStr);
+    const isDecimal = numStr.includes(".");
+    const duration = 1400;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const cur = target * eased;
+      setDisplay(`${prefix}${isDecimal ? cur.toFixed(1) : Math.floor(cur)}${suffix}`);
+      if (t < 1) requestAnimationFrame(tick);
+      else setDisplay(value);
+    };
+    requestAnimationFrame(tick);
+  }, [isInView, value]);
+
+  return (
+    <motion.div
+      ref={ref}
+      whileHover={{ backgroundColor: "var(--bg-card)" }}
+      style={style}
+    >
+      <div style={{
+        fontFamily: "'Space Grotesk Variable', system-ui, sans-serif",
+        fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
+        fontWeight: 700,
+        letterSpacing: "-0.03em",
+        color: "var(--text)",
+        lineHeight: 1,
+        marginBottom: 8,
+      }}>
+        {display}
+      </div>
+      <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", fontWeight: 500 }}>
+        {label}
+      </div>
+    </motion.div>
+  );
+};
 
 /* Heading lines with staggered clip-path reveal */
 const LINES = [
@@ -158,9 +207,10 @@ const Hero = () => {
           style={{ marginTop: 80, display: "flex", flexWrap: "wrap", gap: "0px" }}
         >
           {STATS.map((s, i) => (
-            <motion.div
+            <StatCounter
               key={i}
-              whileHover={{ backgroundColor: "var(--bg-card)" }}
+              value={s.value}
+              label={s.label}
               style={{
                 flex: "1 1 140px",
                 padding: "24px 28px",
@@ -169,22 +219,7 @@ const Hero = () => {
                 transition: "background 120ms ease",
                 cursor: "default",
               }}
-            >
-              <div style={{
-                fontFamily: "'Space Grotesk Variable', system-ui, sans-serif",
-                fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-                fontWeight: 700,
-                letterSpacing: "-0.03em",
-                color: "var(--text)",
-                lineHeight: 1,
-                marginBottom: 8,
-              }}>
-                {s.value}
-              </div>
-              <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", fontWeight: 500 }}>
-                {s.label}
-              </div>
-            </motion.div>
+            />
           ))}
         </motion.div>
       </div>

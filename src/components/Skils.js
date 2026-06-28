@@ -14,7 +14,6 @@ import { ReactComponent as SQLAlchemy }  from "../assets/icons/sqlalchemy.svg";
 import { ReactComponent as Langchain }   from "../assets/icons/langchain.svg";
 import { ReactComponent as LangGraph }   from "../assets/icons/langgraph.svg";
 
-/* All skills for the marquee — duplicated for seamless loop */
 const MARQUEE_SKILLS = [
   { Icon: Python,     name: "Python" },
   { Icon: FastApi,    name: "FastAPI" },
@@ -39,19 +38,48 @@ const MARQUEE_SKILLS = [
 const SKILL_GROUPS = [
   {
     title: "LLM & RAG",
-    items: ["LangChain", "LangGraph", "AWS Bedrock", "RAG Pipelines", "Prompt Engineering", "Langfuse", "Streaming Responses"],
+    items: [
+      { name: "LangChain",           detail: "Production pipelines" },
+      { name: "LangGraph",           detail: "Multi-agent orchestration" },
+      { name: "AWS Bedrock",         detail: "Claude, Titan models" },
+      { name: "RAG Pipelines",       detail: "Hybrid search + rerank" },
+      { name: "Prompt Engineering",  detail: "Few-shot, CoT, ReAct" },
+      { name: "Langfuse",            detail: "LLM observability" },
+      { name: "Streaming Responses", detail: "SSE + WebSocket" },
+    ],
   },
   {
     title: "Backend",
-    items: ["Python", "FastAPI", "Django", "DRF", "Microservices", "Pytest", "Shell Scripting"],
+    items: [
+      { name: "Python",         detail: "4+ years, primary lang" },
+      { name: "FastAPI",        detail: "REST + async APIs" },
+      { name: "Django",         detail: "DRF, admin, ORM" },
+      { name: "Microservices",  detail: "Event-driven arch" },
+      { name: "Pytest",         detail: "90%+ test coverage" },
+      { name: "Shell Scripting",detail: "Automation & CI" },
+    ],
   },
   {
     title: "Databases",
-    items: ["PostgreSQL", "pgvector", "Neo4j", "MongoDB", "Redis", "SQLAlchemy"],
+    items: [
+      { name: "PostgreSQL",   detail: "Primary data store" },
+      { name: "pgvector",     detail: "Vector similarity search" },
+      { name: "Neo4j",        detail: "Graph traversal & KG" },
+      { name: "MongoDB",      detail: "Document store" },
+      { name: "Redis",        detail: "Cache + pub/sub" },
+      { name: "SQLAlchemy",   detail: "ORM + Alembic migrations" },
+    ],
   },
   {
     title: "Infrastructure",
-    items: ["Docker", "AWS EC2 / S3", "Kafka", "Git", "Linux", "Docling"],
+    items: [
+      { name: "Docker",        detail: "Compose + multi-stage" },
+      { name: "AWS EC2 / S3",  detail: "Deployed & maintained" },
+      { name: "Kafka",         detail: "Event streaming" },
+      { name: "Git",           detail: "GitHub, GitLab workflows" },
+      { name: "Linux",         detail: "Ubuntu, bash admin" },
+      { name: "Docling",       detail: "PDF / table extraction" },
+    ],
   },
 ];
 
@@ -69,7 +97,7 @@ const MarqueeItem = ({ Icon, name }) => (
 const Skills = () => (
   <section id="skills" style={{ borderTop: "1px solid var(--border)" }}>
 
-    {/* Marquee strip with gradient fade edges */}
+    {/* Marquee strip */}
     <div className="marquee-container" style={{ padding: "28px 0", borderBottom: "1px solid var(--border)" }}>
       <div style={{ display: "flex", gap: 12 }}>
         <div className="marquee-track">
@@ -105,19 +133,23 @@ const Skills = () => (
               transition={{ duration: 0.5, delay: gi * 0.06, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="card card-lift h-100">
-                <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 20 }}>
+                <p style={{
+                  fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em",
+                  textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 20,
+                }}>
                   {group.title}
                 </p>
-                <div className="d-flex flex-column gap-2">
+                <div className="d-flex flex-column">
                   {group.items.map((item, ii) => (
-                    <div key={ii} style={{
-                      fontSize: "0.875rem",
-                      fontWeight: 500,
-                      color: "var(--text)",
-                      padding: "10px 0",
-                      borderBottom: ii < group.items.length - 1 ? "1px solid var(--border)" : "none",
-                    }}>
-                      {item}
+                    <div
+                      key={ii}
+                      className="skill-item"
+                      style={{
+                        borderBottom: ii < group.items.length - 1 ? "1px solid var(--border)" : "none",
+                      }}
+                    >
+                      <span className="skill-name">{item.name}</span>
+                      <span className="skill-detail">{item.detail}</span>
                     </div>
                   ))}
                 </div>
@@ -127,6 +159,44 @@ const Skills = () => (
         </div>
       </div>
     </div>
+
+    <style>{`
+      .skill-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 8px;
+        margin: 0 -8px;
+        border-radius: 6px;
+        cursor: default;
+        transition: background 140ms ease;
+        gap: 12px;
+      }
+      .skill-item:hover {
+        background: var(--bg-hover);
+      }
+      .skill-name {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text);
+        transition: color 140ms ease;
+        white-space: nowrap;
+      }
+      .skill-detail {
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        opacity: 0;
+        transform: translateX(6px);
+        transition: opacity 160ms ease, transform 160ms ease;
+        white-space: nowrap;
+        text-align: right;
+      }
+      .skill-item:hover .skill-detail {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    `}</style>
   </section>
 );
 
