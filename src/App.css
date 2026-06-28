@@ -14,7 +14,7 @@ body {
 
 body { overflow-y: auto; }
 html { overflow-x: hidden; }
-body { overflow-x: clip; }
+body { overflow-x: hidden; }
 
 /* Custom cursor */
 #cursor-dot {

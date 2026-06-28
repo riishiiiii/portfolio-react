@@ -120,6 +120,7 @@ const Hero = () => {
   const resumeUrl = `${process.env.PUBLIC_URL || ""}/cv/resume.pdf`;
 
   useEffect(() => {
+    if (window.innerWidth < 768) return; // native scroll on mobile — Lenis causes touch issues
     const lenis = new Lenis({ smoothWheel: true, lerp: 0.1, wheelMultiplier: 0.9 });
     const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
     const id = requestAnimationFrame(raf);

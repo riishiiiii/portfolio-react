@@ -58,7 +58,7 @@ html {
 body {
   background-color: var(--bg);
   color: var(--text);
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 main { padding-top: var(--nav-h); }
@@ -73,10 +73,6 @@ section[id] { scroll-margin-top: var(--nav-h); }
   line-height: 0.93;
   letter-spacing: -0.04em;
   color: var(--text);
-}
-
-@media (max-width: 480px) {
-  .hero-heading { font-size: clamp(2.8rem, 14vw, 4rem); }
 }
 
 .hero-heading .dim {
